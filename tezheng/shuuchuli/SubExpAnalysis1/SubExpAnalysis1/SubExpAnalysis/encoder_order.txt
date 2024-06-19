@@ -1,0 +1,2 @@
+AV1, AVS2, H264, VP9, HEVC
+UP3216Q, SSIMplusCore, iPhone 6 Plus, iPad Air 2, OLED65G6P, 27MP35HQ, Macbook Pro
