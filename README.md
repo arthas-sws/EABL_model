@@ -16,13 +16,9 @@ This guide provides instructions for using the EABL model based on WPC2.0. The m
 1. Navigate to the following directory in the HM-16.20 + SCM-8.8 source:
 2. Replace all files in this folder with the corresponding files provided by the model.
 
-### Step 3: Replace Files in `TLibDecoder`
-1. Navigate to the following directory in the HM-16.20 + SCM-8.8 source:
-2. Replace all files in this folder with the corresponding files provided by the model.
-
 ### Step 4: Set `TAppDecoder` as the Startup Item
 1. In your IDE, set `TAppDecoder` as the startup project.
-2. Run the following command (adjust paths as necessary):
+2. Run the following command (adjust paths as necessary):-b E:\mpeg-pc-tmc2\external\HM-16.20+SCM-8.8\test\bag_geo_26_col_26_GOF0_attribute.bin -o E:/mpeg-pc-tmc2/external/HM-16.20+SCM-8.8/test/bag_geo_26_col_26_GOF0_attribute.bin External yuv > E:\MPEG-PCC-TMC2\hm-16.20+SCM-8.8\out.txt
 3. This step will generate an output file `out.txt` that contains the `TE` information.
 
 ### Step 5: Retrieve TE Information
