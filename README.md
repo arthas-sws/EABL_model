@@ -1,4 +1,4 @@
-# EABL Model Based on WPC2.0
+# EABL Model
 
 This guide provides instructions for using the EABL model based on WPC2.0. The model requires debugging TMC2 (v21) and the corresponding HM-16.20 + SCM-8.8 version of the software. Follow the steps below to use the EABL model effectively.
 
