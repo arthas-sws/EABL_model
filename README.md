@@ -29,6 +29,7 @@ This guide provides instructions for using the EABL model based on WPC2.0. The m
 2. Example usage:
 ```matlab
 Fmos_value = EABL(TQP, GQP, TE);
+```
 
 ## Another way to do it
 
