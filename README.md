@@ -29,3 +29,17 @@ This guide provides instructions for using the EABL model based on WPC2.0. The m
 2. Example usage:
 ```matlab
 Fmos_value = EABL(TQP, GQP, TE);
+
+## Another way to do it
+
+### Step 1 : Download "diaoyongexe.m EABL.m" and "bag_geo_26_col_32_GOF0_attribute.bin"
+
+### Step 2 :Use matlab to open "diaoyongexe.m" to modify the parameters inside, and the default parameters can be used to test whether the deployment is successful
+
+### Step 3 :  Generate TE using your own bin file call
+
+### Step 4：Calculate the Final EABL Score
+1. Use MATLAB to calculate the final EABL score by calling the encrypted `EABL.p` function.
+2. Example usage:
+```matlab
+Fmos_value = EABL(TQP, GQP, TE);
