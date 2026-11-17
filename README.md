@@ -1,29 +1,15 @@
 # EABL Model
 
-This guide provides instructions for using the EABL model based on WPC2.0. The model requires debugging TMC2 (v21) and the corresponding HM-16.20 + SCM-8.8 version of the software. Follow the steps below to use the EABL model effectively.
+This repository provides the Energy-Adaptive Bitstream-Layer (EABL) model developed using WPC2.0.
 
-## Step-by-Step Instructions
+## Extract TE with the Windows decoder
 
-### Step 1: Debug TMC2 and HM-16.20 + SCM-8.8
-1. Download and set up the TMC2 v21 version.
-2. Download and set up the corresponding HM-16.20 + SCM-8.8 version.
-
-### Step 2: Replace Files in `TAppDecoder`
-1. Navigate to the following directory in the HM-16.20 + SCM-8.8 source:
-2. Replace all files in this folder with the corresponding files provided by the model.
-
-### Step 3: Replace Files in `TLibDecoder`
-1. Navigate to the following directory in the HM-16.20 + SCM-8.8 source:
-2. Replace all files in this folder with the corresponding files provided by the model.
-
-### Step 4: Extract TE with the provided Windows decoder
 From the folder containing `TAppDecoder.exe` and the sample attribute bitstream, run this command in Windows Command Prompt.
 
 ```bat
 TAppDecoder.exe -b "bag_geo_26_col_32_GOF0_attribute.bin"
 ```
 
-### Step 5: Read the TE result
 The decoder prints the following result for the provided sample.
 
 ```text
@@ -32,23 +18,30 @@ TE=1424068304
 
 To save the result, append `> out.txt` to the command. The decoder does not need a reconstructed YUV output file to extract TE.
 
-### Step 6: Calculate the Final EABL Score
-1. Use MATLAB to calculate the final EABL score by calling the encrypted `EABL.p` function.
-2. Example usage:
+## Calculate the EABL score in MATLAB
+
+Set MATLAB's current folder to [`matlab`](matlab) to use the editable [`EABL.m`](matlab/EABL.m). The repository root also contains `EABL.p` for existing workflows. Pass the raw `TE` value printed by the decoder. The function applies its own normalization.
+
 ```matlab
 Fmos_value = EABL(TQP, GQP, TE);
 ```
 
-## Another way to do it
+You can also run [`diaoyongexe.m`](diaoyongexe.m) from the repository root to extract TE into `out.txt`.
 
-### Step 1 : Download "diaoyongexe.m EABL.m" and "bag_geo_26_col_32_GOF0_attribute.bin"
+## Evaluation metrics
 
-### Step 2 :Use matlab to open "diaoyongexe.m" to modify the parameters inside, and the default parameters can be used to test whether the deployment is successful
+With MATLAB's current folder set to `matlab`, pass paired vectors of subjective MOS and predicted scores to [`eabl_quality_metrics.m`](matlab/eabl_quality_metrics.m). It requires Statistics and Machine Learning Toolbox.
 
-### Step 3 :  Generate TE using your own bin file call
-
-### Step 4：Calculate the Final EABL Score
-1. Use MATLAB to calculate the final EABL score by calling the encrypted `EABL.p` function.
-2. Example usage:
 ```matlab
-Fmos_value = EABL(TQP, GQP, TE);
+[plcc, srcc, rmse] = eabl_quality_metrics(mos, predictedScores);
+```
+
+SRCC uses the raw predictions. PLCC and RMSE use predictions mapped to the MOS scale with a four-parameter logistic fit.
+
+## Build the decoder from source
+
+Start with HM 16.20 + SCM 8.8 and copy this repository's `source/` tree over the corresponding HM source tree. This includes the decoder application and library as well as `source/Lib/TLibCommon/TComTrQuant.cpp`, which accumulates the transform energy. On Windows, build the `TAppDecoder` target in x64 Release using the HM Visual Studio solution. The build was tested with Visual Studio 2022 after retargeting the HM projects to the installed toolset and Windows SDK.
+
+For other V-PCC streams, first extract the HEVC attribute sub-bitstream with TMC2. Pass that sub-bitstream to `TAppDecoder.exe`.
+
+The HM-derived source and decoder binary are accompanied by the [HM copyright and BSD license notice](LICENSE-HM.txt).

@@ -99,6 +99,10 @@ int main(int argc, char* argv[])
 
     // destroy application decoder class 销毁应用程序解码器类
     cTAppDecTop.destroy();
+    if (returnCode == EXIT_SUCCESS)
+    {
+        printf("TE=%d\n", DCT4HE + DCT8HE + DCT16HE + DCT32HE + DST4HE);
+    }
     /*
   //  printf("0chuxian  %d \n", AAAAA[0]);
     //LorS 顺序为4*4 L 4*4 S 8*8L 8*8S....
