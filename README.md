@@ -16,13 +16,21 @@ This guide provides instructions for using the EABL model based on WPC2.0. The m
 1. Navigate to the following directory in the HM-16.20 + SCM-8.8 source:
 2. Replace all files in this folder with the corresponding files provided by the model.
 
-### Step 4: Set `TAppDecoder` as the Startup Item
-1. In your IDE, set `TAppDecoder` as the startup project.
-2. Run the following command (adjust paths as necessary):-b E:\mpeg-pc-tmc2\external\HM-16.20+SCM-8.8\test\bag_geo_26_col_26_GOF0_attribute.bin -o E:/mpeg-pc-tmc2/external/HM-16.20+SCM-8.8/test/bag_geo_26_col_26_GOF0_attribute.bin External yuv > E:\MPEG-PCC-TMC2\hm-16.20+SCM-8.8\out.txt
-3. This step will generate an output file `out.txt` that contains the `TE` information.
+### Step 4: Extract TE with the provided Windows decoder
+From the folder containing `TAppDecoder.exe` and the sample attribute bitstream, run this command in Windows Command Prompt.
 
-### Step 5: Retrieve TE Information
-1. Open `out.txt` and locate the TE information that is required for the next step.
+```bat
+TAppDecoder.exe -b "bag_geo_26_col_32_GOF0_attribute.bin"
+```
+
+### Step 5: Read the TE result
+The decoder prints the following result for the provided sample.
+
+```text
+TE=1424068304
+```
+
+To save the result, append `> out.txt` to the command. The decoder does not need a reconstructed YUV output file to extract TE.
 
 ### Step 6: Calculate the Final EABL Score
 1. Use MATLAB to calculate the final EABL score by calling the encrypted `EABL.p` function.
